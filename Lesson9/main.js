@@ -1,6 +1,7 @@
 const port = 3000
 const express = require('express')
 const app = express()
+const homeController = require('./homeController')
 
 // app.get('/items/:vegetables', (req, res) => {
 //     let veg = req.params.vegetables
@@ -23,5 +24,7 @@ app.post('/', (req, res) => {
     // console.log(req.query)
     res.send('POST Successful')
 })
+
+app.get("/items/:vegetable", homeController.sendReqParam);
 
 app.listen(port, () => { console.log(`Server running on port ${port}`) })
