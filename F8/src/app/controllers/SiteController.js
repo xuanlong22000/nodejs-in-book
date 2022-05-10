@@ -1,11 +1,14 @@
-class SiteController {
-    index(req, res) {
-        res.render('home')
-    }
+const Courses = require('../models/Courses')
 
-    search(req, res) {
-        res.render('search')
-    }
+exports.index = (req, res) => {
+    Courses.find({}, (error, courses) => {
+        if (error) throw error
+        res.json(courses)
+    })
+
+    // res.render('home')
 }
 
-module.exports = new SiteController
+exports.search = (req, res) => {
+    res.render('search')
+}

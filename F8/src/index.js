@@ -4,6 +4,10 @@ const path = require('path')
 const morgan = require('morgan')
 const route = require('./routes')
 const handlebars = require('express-handlebars')
+const db = require('./config/db')
+
+//Connect DB
+db.connect()
 
 
 app.use(express.static(path.join(__dirname, 'public')))
