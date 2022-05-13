@@ -32,8 +32,9 @@ const userSchema = new Schema({
     timestamps: true
 })
 
-userSchema.virtual('fullName').get(() => {
-    return `${this.name.first} ${this.name.last}`
-})
+userSchema.virtual("fullName").get(function () {
+    return `${this.name.first} ${this.name.last}`;
+});
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model("User", userSchema);
+

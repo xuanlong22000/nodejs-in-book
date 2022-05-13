@@ -38,11 +38,11 @@ mongoose.Promise = global.Promise;
 //     })
 //     .then(subscriber => {
 //         testUser.subscribedAccount = subscriber;
+//         testUser.zipCode = subscriber.zipCode;
 //         testUser.save().then(() => console.log("user updated"));
 //     })
 //     .catch(error => console.log(error.message));
 
-app.get("/users", usersController.index);
-app.get("/", (req, res) => { res.send('<h1>Hello World</h1>') })
+app.get("/users", usersController.index)
 
 app.listen(port, () => { console.log(`Sever running on port ${port}`) })
