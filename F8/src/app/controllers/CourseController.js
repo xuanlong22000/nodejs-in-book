@@ -14,5 +14,15 @@ exports.create = (req, res, next) => {
 }
 
 exports.store = (req, res, next) => {
-    res.json(req.body)
+    // res.json(req.body)
+    const formData = req.body
+    // console.log(formData)
+    formData.image = `https://img.youtube.com/vi/${formData.videoId}/sddefault.jpg`
+    const course = new Courses(formData)
+    course.save()
+        .then(() => {
+            res.redirect('/')
+            // console.log(formData)
+        })
+        .catch((error) => { console.log(error) })
 }
