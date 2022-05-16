@@ -39,6 +39,7 @@ mongoose.Promise = global.Promise;
 //     .then(subscriber => {
 //         testUser.subscribedAccount = subscriber;
 //         testUser.zipCode = subscriber.zipCode;
+//         testUser.courses = subscriber.courses;
 //         testUser.save().then(() => console.log("user updated"));
 //     })
 //     .catch(error => console.log(error.message));

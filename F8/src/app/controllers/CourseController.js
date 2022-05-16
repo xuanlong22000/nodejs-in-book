@@ -26,3 +26,18 @@ exports.store = (req, res, next) => {
         })
         .catch((error) => { console.log(error) })
 }
+
+exports.edit = (req, res, next) => {
+    Courses.findById(req.params.id)
+        .then((course) => { res.render('courses/edit', { course: mongooseToObject(course) }) })
+}
+
+exports.update = (req, res, next) => {
+    Courses.updateOne({ _id: req.params.id }, req.body)
+        .then(() => res.redirect('/me/stored/courses'))
+}
+
+exports.destroy = (req, res, next) => {
+    Courses.deleteOne({ _id: req.params.id })
+        .then(() => res.redirect('back'))
+}
