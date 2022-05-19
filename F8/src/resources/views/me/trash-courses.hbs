@@ -1,7 +1,7 @@
 <div class="mt-4">
     <div>
-      <h3>Bai viet cua toi</h3>
-      <a href="/me/trash/courses">Thung rac</a>
+      <a href="/me/stored/courses">Bai post cua toi</a>
+      <h3>Bai viet da xoa</h3>
     </div>
     
     <table class="table">
@@ -21,15 +21,14 @@
                 <td>{{this.level}}</td>
                 <td>{{this.createdAt}}</td>
                 <td>
-                    <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sua</a>
-                    <a href="" class="btn btn-link" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#deleteCourseModal">Xoa</a>
+                    <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khoi phuc</a>
+                    <a href="" class="btn btn-link" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#deleteCourseModal">Xoa vinh vien</a>
                 </td>
             </tr>
             {{else}}
             <tr>
               <td colspan="5" class="text-center">
-                Ban chua co bai post nao. 
-                <a href="/courses/create">Post bai viet</a>
+                Thung rac trong. 
               </td>
             </tr>
             {{/each}}
@@ -45,10 +44,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Ban co muon xoa bai post ko ?
+        Ban co muon xoa bai post vinh vien ko ?
       </div>
       <div class="modal-footer">
-        <button id="btn-delete-course" type="button" class="btn btn-danger">Xoa</button>  
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Xoa vinh vien</button>  
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huy</button>
       </div>
     </div>
@@ -56,19 +55,32 @@
 </div>
 
 <form method="POST" name="delete-course-form"></form>
+<form method="POST" name="restore-course-form"></form>
 
 <script>
     const deleteCourseModal = document.getElementById('deleteCourseModal')
-    
+
+    var restoreForm=document.forms['restore-course-form']
+    var restoreBtnAll = document.querySelectorAll('.btn-restore');
+    restoreBtnAll.forEach((restoreBtn) => {
+        restoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            var courseId = restoreBtn.getAttribute('data-id');
+            restoreForm.action = `/courses/${courseId}/restore?_method=PATCH`;
+            restoreForm.submit();
+        });
+    });
+
     deleteCourseModal.addEventListener('show.bs.modal', event => {
         var courseId
         var deleteForm=document.forms['delete-course-form']
+        
         const button = event.relatedTarget
         courseId = button.getAttribute('data-id')
         
         var btnDeleteCourse=document.getElementById('btn-delete-course')
         btnDeleteCourse.onclick=()=>{
-            deleteForm.action=`/courses/${courseId}?_method=DELETE`
+            deleteForm.action=`/courses/${courseId}/force?_method=DELETE`
             deleteForm.submit()
         }
     })

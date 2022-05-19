@@ -6,5 +6,11 @@ exports.storedCourses = (req, res, next) => {
         .then((course) => {
             res.render('me/stored-courses', { courses: multipleMongooseObject(course) })
         })
+}
 
+exports.trashCourses = (req, res, next) => {
+    Courses.findDeleted({})
+        .then((course) => {
+            res.render('me/trash-courses', { courses: multipleMongooseObject(course) })
+        })
 }

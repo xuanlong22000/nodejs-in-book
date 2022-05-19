@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const usersController = require("./controllers/usersController")
+const subscribersController = require("./controllers/subscribersController")
 const express = require('express')
 const app = express()
 const router = express.Router()
@@ -24,13 +24,13 @@ router.use(methodOverride("_method", {
 }))
 app.use("/", router)
 
-router.get('/', usersController.welcome)
-router.get('/users/new', usersController.new)
-router.post('/users/create', usersController.create, usersController.redirectView)
-router.get("/users/:id", usersController.show)
-router.get("/users", usersController.index)
-router.get("/users/:id/edit", usersController.edit)
-router.put("/users/:id/update", usersController.update, usersController.redirectView)
-router.delete("/users/:id/delete", usersController.delete, usersController.redirectView)
+router.get('/', subscribersController.welcome)
+router.get("/subscribers", subscribersController.index);
+router.get("/subscribers/new", subscribersController.new);
+router.post("/subscribers/create", subscribersController.create)
+router.get("/subscribers/:id", subscribersController.show)
+router.get("/subscribers/:id/edit", subscribersController.edit)
+router.put("/subscribers/:id/update", subscribersController.update)
+router.delete("/subscribers/:id/delete", subscribersController.delete)
 
 app.listen(port, () => { console.log(`Sever running on port ${port}`) })

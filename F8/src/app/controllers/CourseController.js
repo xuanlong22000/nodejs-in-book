@@ -15,13 +15,12 @@ exports.create = (req, res, next) => {
 
 exports.store = (req, res, next) => {
     // res.json(req.body)
-    const formData = req.body
     // console.log(formData)
-    formData.image = `https://img.youtube.com/vi/${formData.videoId}/sddefault.jpg`
-    const course = new Courses(formData)
+    req.body.image = `https://img.youtube.com/vi/${req.body.videoId}/sddefault.jpg`
+    const course = new Courses(req.body)
     course.save()
         .then(() => {
-            res.redirect('/')
+            res.redirect('/me/stored/courses')
             // console.log(formData)
         })
         .catch((error) => { console.log(error) })
@@ -38,6 +37,16 @@ exports.update = (req, res, next) => {
 }
 
 exports.destroy = (req, res, next) => {
+    Courses.delete({ _id: req.params.id })
+        .then(() => res.redirect('back'))
+}
+
+exports.restore = (req, res, next) => {
+    Courses.restore({ _id: req.params.id })
+        .then(() => res.redirect('back'))
+}
+
+exports.forceDestroy = (req, res, next) => {
     Courses.deleteOne({ _id: req.params.id })
         .then(() => res.redirect('back'))
 }
