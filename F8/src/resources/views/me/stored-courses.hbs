@@ -1,7 +1,9 @@
 <div class="mt-4">
     <div>
       <h3>Bai viet cua toi</h3>
-      <a href="/me/trash/courses">Thung rac</a>
+      {{#if deletedCount}}
+      <a href="/me/trash/courses">Thung rac ({{deletedCount}})</a>
+      {{/if}}
     </div>
     
     <table class="table">
