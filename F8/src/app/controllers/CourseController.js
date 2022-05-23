@@ -50,3 +50,14 @@ exports.forceDestroy = (req, res, next) => {
     Courses.deleteOne({ _id: req.params.id })
         .then(() => res.redirect('back'))
 }
+
+exports.handleFormAction = (req, res, next) => {
+    switch (req.body.action) {
+        case 'delete':
+            Courses.delete({ _id: { $in: req.body.courseIds } })
+                .then(() => res.redirect('back'))
+            break
+        default:
+            res.send('Error')
+    }
+}
