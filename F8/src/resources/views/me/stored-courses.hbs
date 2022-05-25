@@ -20,14 +20,15 @@
       </div>
     </div>
     
+    
     <table class="table">
         <thead>
             <tr>
-                <th scope="col"></th>
                 <th scope="col">#</th>
-                <th scope="col">Ten bai post</th>
-                <th scope="col">Level</th>
-                <th scope="col">Thoi gian tao</th>
+                <th scope="col">ID {{{sortable '_id' _sort}}}</th>
+                <th scope="col">Ten bai post {{{sortable 'name' _sort}}}</th>
+                <th scope="col">Level {{{sortable 'level' _sort}}}</th>
+                <th scope="col">Thoi gian tao {{{sortable 'createdAt' _sort}}}</th>
             </tr>
         </thead>
         <tbody>
@@ -38,7 +39,7 @@
                     <input class="form-check-input" type="checkbox" name="courseIds[]" value="{{this._id}}">
                   </div>
                 </td>
-                <th scope="row">{{sum @index 1}}</th>
+                <th scope="row">{{this._id}}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.level}}</td>
                 <td>{{this.createdAt}}</td>
