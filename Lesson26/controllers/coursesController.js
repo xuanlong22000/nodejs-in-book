@@ -1,5 +1,4 @@
 const Course = require("../models/course");
-const passport = require("passport")
 
 module.exports = {
     index: (req, res) => {
