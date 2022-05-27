@@ -6,10 +6,7 @@ module.exports = {
     index: (req, res, next) => {
         Course.find({})
             .then(courses => {
-
-                res.json(res.locals.courses = courses);
-
-                next()
+                res.json(res.locals.courses = courses)
             })
 
     },
