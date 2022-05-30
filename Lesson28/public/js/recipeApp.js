@@ -5,7 +5,7 @@ $(document).ready(() => {
             // let data = results.data;
 
             if (!data) return;
-            data.forEach((course) => {
+            data.data.courses.forEach((course) => {
                 $(".modal-body").append(
                     `<div>
                         <span class="course-title">

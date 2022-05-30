@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
-const randToken = require("rand-token")
 const passportLocalMongoose = require("passport-local-mongoose")
 const { Schema } = mongoose
 
@@ -44,14 +43,6 @@ userSchema.virtual("fullName").get(function () {
 
 userSchema.pre("save", function (next) {
     let user = this;
-    if (!user.apiToken) {
-        user.apiToken = randToken.generate(16);
-    }
-    next();
-});
-
-userSchema.pre("save", function (next) {
-    let user = this;
     bcrypt.hash(user.password, 10).then(hash => {
         user.password = hash;
         next();
@@ -61,9 +52,6 @@ userSchema.pre("save", function (next) {
             next(error);
         });
 });
-
-
-
 userSchema.methods.passwordComparison = function (inputPassword) {
     let user = this;
     return bcrypt.compare(inputPassword, user.password);
