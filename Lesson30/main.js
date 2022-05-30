@@ -8,11 +8,11 @@ const User = require("./models/user");
 const express = require('express')
 const app = express()
 const router = require('./routes/index')
-const chatController = require("./controllers/chatController")
 const methodOverride = require("method-override");
 const layout = require('express-ejs-layouts')
-const port = 3000
+// const port = 3000
 
+app.set('port', process.env.PORT || 3000);
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
 app.use(layout)
@@ -53,13 +53,19 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     next();
 });
+
 app.use(expressValidator())
-const server = app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-})
-const io = require("socket.io")(server);
-chatController(io)
 
 app.use("/", router)
+
+const server = app.listen(app.get("port"), () => {
+    console.log(`Server running at http://localhost:${app.get("port")}`);
+})
+const io = require("socket.io")(server);
+
+require("./controllers/chatController")(io)
+
+
+
 
 
