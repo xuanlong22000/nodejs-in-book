@@ -5,11 +5,7 @@ const PORT = 3000
 const postRoute = require('./routes/post')
 
 app.use(express.json())
-mongoose.connect(
-    "mongodb://localhost:27017/Rest_API",
-    { useNewUrlParser: true },
-    console.log('Connect Success')
-)
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/Rest_API", { useNewUrlParser: true })
 
 app.use('/posts', postRoute)
 app.get('/', (req, res) => {

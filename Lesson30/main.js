@@ -20,10 +20,7 @@ app.use(layout)
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-mongoose.connect(
-    "mongodb://localhost:27017/recipe_db",
-    { useNewUrlParser: true }
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/recipe_db", { useNewUrlParser: true })
 mongoose.Promise = global.Promise;
 
 app.use(methodOverride("_method", {
